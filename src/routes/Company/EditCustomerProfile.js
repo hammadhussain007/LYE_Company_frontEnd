@@ -144,17 +144,17 @@ const EditCustomerProfile = () => {
                             <Form.Item label="Phone" name="contactNo">
                                 <Input />
                             </Form.Item>
-                            <Form.Item label="Whatsapp No" name="whatsAppNo">
+                            {/* <Form.Item label="Whatsapp No" name="whatsAppNo">
                                 <Input />
-                            </Form.Item>
+                            </Form.Item> */}
 
 
-                            <Form.Item label="Address" name="address">
+                            {/* <Form.Item label="Address" name="address">
                                 <Input.TextArea />
-                            </Form.Item>
-                            <Form.Item label="Profession" name="profession">
+                            </Form.Item> */}
+                            {/* <Form.Item label="Profession" name="profession">
                                 <Input />
-                            </Form.Item>
+                            </Form.Item> */}
 
                             <Form.Item style={{ float: 'right' }}>
                                 <Button type="primary" htmlType="submit" form='editCustomerForm' disabled={isloading}>Update</Button>
@@ -169,7 +169,7 @@ const EditCustomerProfile = () => {
                         {/* {isloading && <Spin tip="Uploading..." style={{ fontSize: "150%" }} />} */}
                         <div style={{ marginTop: 30, marginBottom: 30 }}>
                             {newProfilePic && !isloading ? <Avatar src={newProfilePic} style={{ left: '20%' }} size={200} />
-                                : User.profilePic && !isloading ?
+                                : (User.profilePic === null || User.profilePic === undefined || User.profilePic === "") && !isloading ?
                                     <Avatar src={User.profilePic} style={{ left: '20%' }} size={200} />
                                     : <Spin tip="Uploading..." style={{ fontSize: "150%" }} />
                             }

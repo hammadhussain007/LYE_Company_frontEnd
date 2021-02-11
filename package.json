@@ -2,6 +2,7 @@
   "name": "wieldy-hook",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://localhost:3000/company",
   "dependencies": {
     "@amcharts/amcharts3-react": "^3.1.0",
     "@ant-design/compatible": "^1.0.2",

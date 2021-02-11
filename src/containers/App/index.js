@@ -32,7 +32,7 @@ const RestrictedRoute = ({ component: Component, location, token, ...rest }) =>
         ? <Component {...props} />
         : <Redirect
           to={{
-            pathname: '/signin',
+            pathname: '/company/signin',
             state: { from: location }
           }}
         />}
@@ -109,19 +109,20 @@ const App = () => {
   };
 
   useEffect(() => {
+
     if (location.pathname === "/") {
 
       if (
         initURL === "" ||
-        initURL === "/" ||
-        initURL === "/signin" ||
-        initURL === "/signup"
+        initURL === "/company" ||
+        initURL === "/company/signin" ||
+        initURL === "/company/signup"
 
 
       ) {
         if (authUser) {
 
-          history.push("/dashboard");
+          history.push("/company/dashboard");
 
         }
 
@@ -130,7 +131,7 @@ const App = () => {
         history.push(initURL);
       }
     }
-  }, [authUser]);
+  }, [authUser, token]);
 
   const currentAppLocale = AppLocale[locale.locale];
 
@@ -141,9 +142,9 @@ const App = () => {
         messages={currentAppLocale.messages}>
 
         <Switch>
-          <Route exact path='/signin' component={SignIn} />
-          <Route exact path='/signup' component={SignUp} />
-          <Route exact path='/' component={Landing} />
+          <Route exact path='/company/signin' component={SignIn} />
+          <Route exact path='/company/signup' component={SignUp} />
+          <Route exact path='/company' component={Landing} />
           <RestrictedRoute path={`${match.url}`} token={token} location={location}
             component={MainApp} />
         </Switch>

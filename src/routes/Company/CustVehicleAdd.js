@@ -77,6 +77,10 @@ const CustVehicleAdd = () => {
         ]
         //setfilterModelName(groupModels)
     }
+    const uniqueCompanyName = [
+        ...new Set(companyNames?.map(item => item.engineCompanyName.toUpperCase()))
+    ]
+
 
     const filterYear = value => {
         console.log(value)
@@ -85,7 +89,7 @@ const CustVehicleAdd = () => {
             axios.post(`${PROD}/getModelYear`, { modelName: value }).then(res => {
 
                 setfilterModelYear(res.data)
-                debugger
+
             })
         } catch (err) {
             const errors = err?.response?.data
@@ -99,6 +103,8 @@ const CustVehicleAdd = () => {
         if (stepCounter.current === 0) {
 
             formData = { ...formData, ...values }
+
+            next()
         }
 
         // setFormData()
@@ -111,14 +117,16 @@ const CustVehicleAdd = () => {
             formData.oilFilterpicOfFilter = carpics?.oilFilterpicOfFilter
             dispatch(addingCustVehicles(formData))
             vehicleAddForm.resetFields()
+            next()
         }
         if (stepCounter.current === 1) {
 
             // values.isDefaultEngine = isEngineDefault
             formData = { ...formData, ...values }
+            next()
         }
 
-        next()
+        //next()
         console.log(formData)
     }
 
@@ -190,12 +198,21 @@ const CustVehicleAdd = () => {
 
     }
 
+    const config = {
+        rules: [
+            {
+                type: 'object',
+                required: true,
+                message: 'Please select Date!',
+            },
+        ],
+    };
 
     return (
         <div>
             <Form
-                name='vehicleAddForm'
-                form={vehicleAddForm}
+                //name='vehicleAddForm'
+                //form={vehicleAddForm}
                 labelCol={{
                     span: 10
                 }}
@@ -225,45 +242,50 @@ const CustVehicleAdd = () => {
                                     {/* <Form.Item hidden name='id'>
                                         <Input />
                                     </Form.Item> */}
-                                    <Form.Item label='License Plate Number' name='noPlate'>
-                                        <Input placeholder='License Plate Number' />
+                                    <Form.Item label='License Plate Number' name='noPlate' required>
+                                        <Input placeholder='License Plate Number' required />
                                     </Form.Item>
-                                    <Form.Item label='Car Color' name='color'>
-                                        <Input placeholder='Car color' />
+                                    <Form.Item label='Car Color' name='color' required >
+                                        <Input placeholder='Car color' type="text" required />
                                     </Form.Item>
-                                    <Form.Item label='Vin number' name='vin'>
-                                        <Input placeholder='VIN Number' />
+                                    <Form.Item label='Vin number' name='vin' required>
+                                        <Input placeholder='VIN Number' required />
                                     </Form.Item>
-                                    <Form.Item label='Chasis Number' name='chasisNo'>
-                                        <Input placeholder='chasis number' />
+                                    <Form.Item label='Chasis Number' name='chasisNo' required>
+                                        <Input placeholder='chasis number' required />
                                     </Form.Item>
 
-                                    <Form.Item label='Enter Notes' name='notes'>
+                                    <Form.Item label='Enter Notes' name='notes'  >
                                         <TextArea placeholder='notes' />
                                     </Form.Item>
                                 </Col>
 
                                 <Col className='gutter-row' span={10}>
-                                    <Form.Item label='License Issue Date' name='licenseissues'>
-                                        <DatePicker placeholder='License Issue Date' />
+                                    <Form.Item label='License Issue Date' name='licenseissues' {...config}>
+                                        <DatePicker placeholder='License Issue Date' aria-required />
                                     </Form.Item>
                                     <Form.Item
                                         label='License Expiry Date'
                                         name='licenseExpiryDate'
+                                        {...config}
                                     >
-                                        <DatePicker placeholder='Last Expiry Date' />
+                                        <DatePicker placeholder='Last Expiry Date' required />
                                     </Form.Item>
-                                    <Form.Item label='License Status' name='licenseStatus'>
-                                        <Input placeholder='License Status' />
+                                    <Form.Item label='License Status' name='licenseStatus' required>
+                                        <Input placeholder='License Status' required />
                                     </Form.Item>
-                                    <Form.Item label='Last service Date' name='lasetServicedate'>
-                                        <DatePicker placeholder='Last service Date' />
+                                    <Form.Item label='Last service Date' name='lasetServicedate' {...config}>
+                                        <DatePicker placeholder='Last service Date' required />
                                     </Form.Item>
 
                                     <Form.Item hidden name='costomerId' initialValue={User && User?.id} >
+
                                         <Input />
                                     </Form.Item>
+                                    <Form.Item hidden name='type' initialValue="vehicle" >
 
+                                        <Input />
+                                    </Form.Item>
                                 </Col>
                             </Row>
                         ) : current === 1 ? (
@@ -272,13 +294,20 @@ const CustVehicleAdd = () => {
                                     name='engineCompanyName'
                                     label='Company Name'
                                     hidden={!isEngineDefault}
+                                    required={isEngineDefault}
+                                    rules={[
+                                        {
+                                            required: isEngineDefault,
+                                        },
+                                    ]}
+
                                 >
-                                    <Select style={{ width: 200 }} onChange={getModelName}>
-                                        {companyNames &&
-                                            companyNames.map((data, index) => {
+                                    <Select style={{ width: 200 }} onChange={getModelName}     >
+                                        {uniqueCompanyName &&
+                                            uniqueCompanyName.map((data, index) => {
                                                 return (
-                                                    <Select.Option key={index} value={data?.engineCompanyName}>
-                                                        {data?.engineCompanyName}
+                                                    <Select.Option key={index} value={uniqueCompanyName[index]}  >
+                                                        {uniqueCompanyName[index]}
                                                     </Select.Option>
                                                 )
                                             })}
@@ -289,6 +318,11 @@ const CustVehicleAdd = () => {
                                     name='modelName'
                                     label='Model Name'
                                     hidden={!isEngineDefault}
+                                    rules={[
+                                        {
+                                            required: isEngineDefault,
+                                        },
+                                    ]}
                                 >
                                     <Select style={{ width: 200 }} onChange={filterYear}>
                                         {vehicleModels &&
@@ -303,15 +337,22 @@ const CustVehicleAdd = () => {
                                     </Select>
                                 </Form.Item>
                                 <Form.Item
-                                    name='menufectureYear'
+                                    name='engineCompanyId'
                                     label='Model Year'
+
                                     hidden={!isEngineDefault}
+
+                                    rules={[
+                                        {
+                                            required: isEngineDefault,
+                                        },
+                                    ]}
                                 >
                                     <Select style={{ width: 200 }}>
                                         {filterModelYear &&
                                             filterModelYear.map((data, index) => {
                                                 return (
-                                                    <Select.Option key={index} value={data?.menufectureYear}>
+                                                    <Select.Option key={index} value={data?.id}>
                                                         {data?.menufectureYear}
                                                     </Select.Option>
                                                 )
@@ -325,6 +366,11 @@ const CustVehicleAdd = () => {
                                             label='Engine company name'
                                             name='engineCompanyName'
                                             hidden={isEngineDefault}
+                                            rules={[
+                                                {
+                                                    required: !isEngineDefault,
+                                                },
+                                            ]}
                                         >
                                             <Input
                                                 placeholder='Engine Company Name'
@@ -335,6 +381,11 @@ const CustVehicleAdd = () => {
                                             label='Country of manufactire'
                                             name='contryOfMenufecture'
                                             hidden={isEngineDefault}
+                                            rules={[
+                                                {
+                                                    required: !isEngineDefault,
+                                                },
+                                            ]}
                                         >
                                             <Input placeholder='country of manufacture' style={{ width: 200 }} />
                                         </Form.Item>
@@ -342,6 +393,11 @@ const CustVehicleAdd = () => {
                                             label='Manufactured year'
                                             name='menufectureYear'
                                             hidden={isEngineDefault}
+                                            rules={[
+                                                {
+                                                    required: !isEngineDefault,
+                                                },
+                                            ]}
                                         >
                                             <Input
                                                 placeholder='Manufactured year'
@@ -352,6 +408,11 @@ const CustVehicleAdd = () => {
                                             label='Model Name'
                                             name='modelName'
                                             hidden={isEngineDefault}
+                                            rules={[
+                                                {
+                                                    required: !isEngineDefault,
+                                                },
+                                            ]}
                                         >
                                             <Input
                                                 placeholder='Model Name'
@@ -362,6 +423,11 @@ const CustVehicleAdd = () => {
                                             label='Fuel Type'
                                             name='fuelType'
                                             hidden={isEngineDefault}
+                                            rules={[
+                                                {
+                                                    required: !isEngineDefault,
+                                                },
+                                            ]}
                                         >
                                             <Input
                                                 placeholder='Fuel type'
@@ -372,6 +438,11 @@ const CustVehicleAdd = () => {
                                             label='Engine type'
                                             name='EngineType'
                                             hidden={isEngineDefault}
+                                            rules={[
+                                                {
+                                                    required: !isEngineDefault,
+                                                },
+                                            ]}
                                         >
                                             <Input
                                                 placeholder='Engine type'
@@ -382,6 +453,11 @@ const CustVehicleAdd = () => {
                                             label='Sump Size Liters'
                                             name='SumpSizeLiter'
                                             hidden={isEngineDefault}
+                                            rules={[
+                                                {
+                                                    required: !isEngineDefault,
+                                                },
+                                            ]}
                                         >
                                             <Input
                                                 placeholder='Sump Size Liters'
@@ -392,6 +468,11 @@ const CustVehicleAdd = () => {
                                             label='Liters of oil used'
                                             name='litersOfOilUsed'
                                             hidden={isEngineDefault}
+                                            rules={[
+                                                {
+                                                    required: !isEngineDefault,
+                                                },
+                                            ]}
                                         >
                                             <Input
                                                 placeholder='Liters of oil used'
@@ -403,6 +484,11 @@ const CustVehicleAdd = () => {
                                             label='Proposed milage by company'
                                             name='companyMilage'
                                             hidden={isEngineDefault}
+                                            rules={[
+                                                {
+                                                    required: !isEngineDefault,
+                                                },
+                                            ]}
                                         >
                                             <Input
                                                 placeholder='Proposed milage by company'
@@ -413,6 +499,11 @@ const CustVehicleAdd = () => {
                                             label='Air filter company '
                                             name='airFilterCompanyName'
                                             hidden={isEngineDefault}
+                                            rules={[
+                                                {
+                                                    required: !isEngineDefault,
+                                                },
+                                            ]}
                                         >
                                             <Input
                                                 placeholder='Air filter company '
@@ -423,6 +514,11 @@ const CustVehicleAdd = () => {
                                             label='Air filter part no '
                                             name='airFilterpartNo'
                                             hidden={isEngineDefault}
+                                            rules={[
+                                                {
+                                                    required: !isEngineDefault,
+                                                },
+                                            ]}
                                         >
                                             <Input
                                                 placeholder='Air filter part no '
@@ -433,6 +529,11 @@ const CustVehicleAdd = () => {
                                             label='Spark plug part no'
                                             name='sparkPlugpartNo'
                                             hidden={isEngineDefault}
+                                            rules={[
+                                                {
+                                                    required: !isEngineDefault,
+                                                },
+                                            ]}
                                         >
                                             <Input
                                                 placeholder='Spark plug part no'
@@ -446,6 +547,11 @@ const CustVehicleAdd = () => {
                                             label='Engine No'
                                             name='engineNo'
                                             hidden={isEngineDefault}
+                                            rules={[
+                                                {
+                                                    required: !isEngineDefault,
+                                                },
+                                            ]}
                                         >
                                             <Input
                                                 placeholder='Engine No'
@@ -456,6 +562,11 @@ const CustVehicleAdd = () => {
                                             label='fuel filter company'
                                             name='fuelFiltercompanyName'
                                             hidden={isEngineDefault}
+                                            rules={[
+                                                {
+                                                    required: !isEngineDefault,
+                                                },
+                                            ]}
                                         >
                                             <Input
                                                 placeholder='fuel filter company'
@@ -466,6 +577,11 @@ const CustVehicleAdd = () => {
                                             label='fuel filter part no'
                                             name='fuelFilterpartNo'
                                             hidden={isEngineDefault}
+                                            rules={[
+                                                {
+                                                    required: !isEngineDefault,
+                                                },
+                                            ]}
                                         >
                                             <Input
                                                 placeholder='fuel filter part no'
@@ -476,6 +592,11 @@ const CustVehicleAdd = () => {
                                             label='fuel filter price'
                                             name='fuelFilterprice'
                                             hidden={isEngineDefault}
+                                            rules={[
+                                                {
+                                                    required: !isEngineDefault,
+                                                },
+                                            ]}
                                         >
                                             <Input
                                                 placeholder='fuel filter price'
@@ -488,6 +609,11 @@ const CustVehicleAdd = () => {
                                             label='Engine no of phase'
                                             name='engineSizenoOfPhases'
                                             hidden={isEngineDefault}
+                                            rules={[
+                                                {
+                                                    required: !isEngineDefault,
+                                                },
+                                            ]}
                                         >
                                             <Input
                                                 placeholder='Engine No of phases'
@@ -498,6 +624,11 @@ const CustVehicleAdd = () => {
                                             label='Engine size in kva'
                                             name='engineSizekVA'
                                             hidden={isEngineDefault}
+                                            rules={[
+                                                {
+                                                    required: !isEngineDefault,
+                                                },
+                                            ]}
                                         >
                                             <Input
                                                 placeholder='Engine size in kva'
@@ -508,6 +639,11 @@ const CustVehicleAdd = () => {
                                             label='Description about engine size'
                                             name='engineSizedescription'
                                             hidden={isEngineDefault}
+                                            rules={[
+                                                {
+                                                    required: !isEngineDefault,
+                                                },
+                                            ]}
                                         >
                                             <Input
                                                 placeholder='Description about engine size'
@@ -518,6 +654,11 @@ const CustVehicleAdd = () => {
                                             label='oil filter company'
                                             name='oilFilterfilterType'
                                             hidden={isEngineDefault}
+                                            rules={[
+                                                {
+                                                    required: !isEngineDefault,
+                                                },
+                                            ]}
                                         >
                                             <Input
                                                 placeholder='oil filter company'
@@ -528,6 +669,11 @@ const CustVehicleAdd = () => {
                                             label='oil filter part no'
                                             name='oilFilterpartNo'
                                             hidden={isEngineDefault}
+                                            rules={[
+                                                {
+                                                    required: !isEngineDefault,
+                                                },
+                                            ]}
                                         >
                                             <Input
                                                 placeholder='oil filter part no'
@@ -538,6 +684,11 @@ const CustVehicleAdd = () => {
                                             label='oil filter price'
                                             name='oilFilterprice'
                                             hidden={isEngineDefault}
+                                            rules={[
+                                                {
+                                                    required: !isEngineDefault,
+                                                },
+                                            ]}
                                         >
                                             <Input
                                                 placeholder='oil filter price'
@@ -548,6 +699,11 @@ const CustVehicleAdd = () => {
                                             label='Price Of Engine'
                                             name='priceOfEngine'
                                             hidden={isEngineDefault}
+                                            rules={[
+                                                {
+                                                    required: !isEngineDefault,
+                                                },
+                                            ]}
                                         >
                                             <Input
                                                 placeholder='Price Of Engine'
@@ -558,6 +714,11 @@ const CustVehicleAdd = () => {
                                             label='Dip stick available'
                                             name='dipstickAvailable'
                                             hidden={isEngineDefault}
+                                            rules={[
+                                                {
+                                                    required: !isEngineDefault,
+                                                },
+                                            ]}
                                         >
                                             <Input
                                                 placeholder='Dip stick available'
@@ -569,7 +730,15 @@ const CustVehicleAdd = () => {
 
                                 </Row>
 
-                                <Form.Item label="Upload oil filter Pic" hidden={isEngineDefault}>
+                                <Form.Item label="Upload oil filter Pic" hidden={isEngineDefault}
+                                    rules={[
+                                        {
+                                            required: !isEngineDefault,
+                                        },
+                                    ]}
+                                    required={!isEngineDefault}
+                                >
+
                                     <Upload
 
                                         showUploadList={false}
@@ -577,19 +746,20 @@ const CustVehicleAdd = () => {
                                         accept="image/*"
                                         action={``}
                                         onChange={(e) => getImageURL(e, "oilFilterpicOfFilter")}
+
                                     >
                                         {carpics?.oilFilterpicOfFilter !== {} && <Image src={carpics?.oilFilterpicOfFilter} />}
 
                                         <Button icon={<UploadOutlined />} disabled={isloading}>Click to Upload</Button>
                                     </Upload>
                                 </Form.Item>
-                                <Form.Item label='Default Engine' name='engineType'>
+                                <Form.Item label='Default Engine' name='engineType' >
                                     <Checkbox
                                         checked={isEngineDefault}
                                         onChange={e => SetIsEngineDefault(!isEngineDefault)}
                                     >
                                         Default
-                  </Checkbox>
+                                     </Checkbox>
                                 </Form.Item>
                             </Fragment>
                         ) : (
@@ -598,7 +768,12 @@ const CustVehicleAdd = () => {
                                         <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
 
                                             <Col className='gutter-row' span={12}>
-                                                <Form.Item label='Front Pic' >
+                                                <Form.Item label='Front Pic'
+                                                    rules={[
+                                                        {
+                                                            required: true,
+                                                        },
+                                                    ]} >
                                                     <Upload
                                                         showUploadList={false}
                                                         name="file"
@@ -608,15 +783,16 @@ const CustVehicleAdd = () => {
 
 
 
+
                                                     >
                                                         {carpics?.picOfVehicleFront !== {} && <Image src={carpics?.picOfVehicleFront} />}
                                                         <br />
 
-                                                        <Button icon={<UploadOutlined />} disabled={isloading} >Click to Upload</Button>
+                                                        <Button icon={<UploadOutlined />} disabled={isloading}  >Click to Upload</Button>
                                                     </Upload>
                                                 </Form.Item>
 
-                                                <Form.Item label='Back Pic'>
+                                                <Form.Item label='Back Pic' required>
                                                     <Upload
 
                                                         showUploadList={false}
@@ -640,7 +816,7 @@ const CustVehicleAdd = () => {
                                             </Col>
 
                                             <Col className='gutter-row' span={12}>
-                                                <Form.Item label='VIN Pic' >
+                                                <Form.Item label='VIN Pic' required={carpics?.picOfVehicleVin === undefined} >
                                                     <Upload
 
                                                         showUploadList={false}
@@ -655,7 +831,7 @@ const CustVehicleAdd = () => {
                                                         <Button icon={<UploadOutlined />} disabled={isloading}>Click to Upload</Button>
                                                     </Upload>
                                                 </Form.Item>
-                                                <Form.Item label='Engine Pic' >
+                                                <Form.Item label='Engine Pic'  >
                                                     <Upload
 
                                                         showUploadList={false}
@@ -679,6 +855,7 @@ const CustVehicleAdd = () => {
                     <div className='steps-action' style={{ float: 'right' }}>
                         {current < steps.length - 1 && (
 
+
                             <Button
                                 type='primary'
                                 htmlType='submit'
@@ -687,6 +864,7 @@ const CustVehicleAdd = () => {
                             >
                                 Next
                             </Button>
+
                         )}
                         {current === steps.length - 1 && (
                             <Button

@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef, Fragment } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
+    DeleteVehicle,
     gettingModels,
 
 
@@ -127,7 +128,7 @@ const VehicleDetails = () => {
                 extra={
                     <div>
                         <Space size="middle">
-                            <Link to='/customeraddvehicle'>
+                            <Link to='/company/customeraddvehicle'>
                                 <Button
                                     onClick={() => {
                                         setAddModalVisible(true)
@@ -137,13 +138,14 @@ const VehicleDetails = () => {
                                     <PlusCircleOutlined /> Add New
                              </Button>
                             </Link>
-                            <Input.Search
+                            {/* <Input.Search
                                 ref={searchInput}
                                 placeholder='Search'
                                 enterButton
                                 onSearch={search}
                                 style={{ width: 300, float: 'right' }}
-                            /></Space>
+                            /> */}
+                        </Space>
                     </div>
                 }
             >
@@ -174,6 +176,15 @@ const VehicleDetails = () => {
                                     <EyeOutlined /> Details
                                  </Button>
                             </Link>
+                            {"  "}
+                            <Button
+                                onClick={() => {
+                                    dispatch(DeleteVehicle(data?.id, User?.id))
+                                }}
+                                type='primary'
+                            >
+                                <DeleteOutlined /> Remove
+                                 </Button>
 
                         </div>
                     }

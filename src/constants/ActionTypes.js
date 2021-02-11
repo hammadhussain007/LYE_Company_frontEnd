@@ -32,8 +32,9 @@ export const USER_DATA = 'user_data';
 export const USER_TOKEN_SET = 'user_token_set';
 
 //dev/prod link
-export const PROD = "http://12d6bcc9b0b8.ngrok.io"
-
+export const PROD = "http://localhost:4000"
+//"https://www.loveyourengine.com"
+//"http://localhost:4000"
 //ADmin
 export const ROLES_LIST = "roles_list"
 
@@ -52,5 +53,12 @@ export const APPOINTMENT_GET = "appointment_get"
 export const VEHICLE_HISTORY = "VEHICLE_HISTORY"
 export const VEHICLE_ABOUT_EXPIRE = "VEHICLE_ABOUT_EXPIRE"
 export const NEXT_VEH_SERVICE = "NEXT_VEH_SERVICE"
+export const myStats = "myStats"
+export const othersStats = "othersStats"
+export const escalationLevels = "escalationLevels"
+
+
+
+
 
 

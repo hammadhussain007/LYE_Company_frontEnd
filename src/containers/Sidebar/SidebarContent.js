@@ -35,7 +35,7 @@ const SidebarContent = () => {
     <div className="gx-sidebar-content">
       <div className={`gx-sidebar-notifications ${getNoHeaderClass(navStyle)}`}>
         <UserProfile />
-        <AppsNavigation />
+        {/* <AppsNavigation /> */}
       </div>
       <CustomScrollbars className="gx-layout-sider-scrollbar">
         <Menu
@@ -44,28 +44,28 @@ const SidebarContent = () => {
           theme={themeType === THEME_TYPE_LITE ? 'lite' : 'dark'}
           mode="inline">
 
-          <Menu.Item key="dashboard">
-            <Link to="/dashboard"><i className="icon icon-widgets" />
+          <Menu.Item key="company/dashboard">
+            <Link to="/company/dashboard"><i className="icon icon-widgets" />
               <span>Dashboard</span>
             </Link>
           </Menu.Item>
-          <Menu.Item key="vehicleDetails">
-            <Link to="/vehicleDetails"><i className="icon icon-widgets" />
+          <Menu.Item key="company/vehicleDetails">
+            <Link to="/company/vehicleDetails"><i className="icon icon-widgets" />
               <span>Vehicles</span>
             </Link>
           </Menu.Item>
-          <Menu.Item key="customerappointments">
-            <Link to="/customerappointments"><i className="icon icon-widgets" />
+          <Menu.Item key="company/customerappointments">
+            <Link to="/company/customerappointments"><i className="icon icon-widgets" />
               <span>Appointments</span>
             </Link>
           </Menu.Item>
-          <Menu.Item key="statistics">
-            <Link to="/statistics"><i className="icon icon-widgets" />
+          <Menu.Item key="company/statistics">
+            <Link to="/company/statistics"><i className="icon icon-widgets" />
               <span>Statistics</span>
             </Link>
           </Menu.Item>
-          <Menu.Item key="customerprofile">
-            <Link to="/customerprofile"><i className="icon icon-widgets" />
+          <Menu.Item key="company/customerprofile">
+            <Link to="/company/customerprofile"><i className="icon icon-widgets" />
               <span>Profile</span>
             </Link>
           </Menu.Item>

@@ -16,7 +16,11 @@ export const setInitUrl = (url) => {
     payload: url
   };
 };
+const Token = JSON.parse(localStorage.getItem('token'))
+if (Token) {
+  axios.defaults.headers.common['authorization'] = "Bearer " + Token;
 
+}
 export const userSignUp = (values) => {
 
   return (dispatch) => {
@@ -49,13 +53,14 @@ export const userSignUp = (values) => {
 export const userSignIn = ({ email, password }) => {
   return (dispatch) => {
     dispatch({ type: FETCH_START });
-    axios.post(`${PROD}/costomersignin`, {
+    axios.post(`${PROD}/companyEmploySignin`, {
       email: email,
       password: password,
     }
     ).then(({ data }) => {
       console.log("userSignIn: ", data);
       if (data) {
+
         localStorage.setItem("token", JSON.stringify(data.token));
         localStorage.setItem("user", JSON.stringify(data.user));
         axios.defaults.headers.common['Authorization'] = "Bearer " + data.token;
@@ -105,7 +110,7 @@ export const userSignOut = () => {
 
     dispatch({ type: FETCH_SUCCESS });
     dispatch({ type: SIGNOUT_USER_SUCCESS });
-    window.location = "/";
+    window.location = "/company";
 
     //   } else {
     //     dispatch({type: FETCH_ERROR, payload: data.error});

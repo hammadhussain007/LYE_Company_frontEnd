@@ -53,9 +53,9 @@ const Landing = () => {
                     <p style={{ margin: "10%", color: "white", fontSize: "140%" }}>About</p>
                     <p style={{ margin: "10%", color: "white", fontSize: "140%" }}>Services</p>
                     <p style={{ margin: "10%", color: "white", fontSize: "140%" }}>Contact us</p>
-                    {!User && <Link to="/signin" style={{ margin: "10%", color: "white", fontSize: "140%" }}>  Sign in</Link>}
-                    {User && <Link to="/signin" style={{ margin: "10%", color: "white", fontSize: "140%" }} onClick={() => dispatch(userSignOut)}>  Sign out <br /><br /></Link>}
-                    {User && <Link to="/dashboard" style={{ margin: "10%", color: "white", fontSize: "140%" }} >  Dashboard</Link>}
+                    {!User && <Link to="/company/signin" style={{ margin: "10%", color: "white", fontSize: "140%" }}>  Sign in</Link>}
+                    {User && <Link to="/company/signin" style={{ margin: "10%", color: "white", fontSize: "140%" }} onClick={() => dispatch(userSignOut)}>  Sign out <br /><br /></Link>}
+                    {User && <Link to="/company/dashboard" style={{ margin: "10%", color: "white", fontSize: "140%" }} >  Dashboard</Link>}
 
 
                 </Drawer>

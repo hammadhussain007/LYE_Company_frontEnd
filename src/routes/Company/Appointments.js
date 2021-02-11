@@ -163,6 +163,15 @@ const Appointments = () => {
 
 const AddModelModal = ({ isVisible, Submit, Cancel, locations, vehicleList, USER }) => {
     const [AddForm] = Form.useForm()
+    const config = {
+        rules: [
+            {
+                type: 'object',
+                required: true,
+                message: 'Please select Date!',
+            },
+        ],
+    };
     return (
         <Modal
             visible={isVisible}
@@ -202,13 +211,19 @@ const AddModelModal = ({ isVisible, Submit, Cancel, locations, vehicleList, USER
                     span: 14
                 }}
             >
-                <Form.Item label='Booking Time and date' name='BookingDateTime'>
+                <Form.Item label='Booking Time and date' name='BookingDateTime' {...config} >
                     <DatePicker showTime />
                 </Form.Item>
                 <Form.Item name='Costomer_ID' hidden initialValue={USER?.id} >
                     <Input />
                 </Form.Item>
-                <Form.Item label='Select Booking type' name='BookingType'>
+                <Form.Item label='Select Booking type' name='BookingType'
+                    rules={[
+                        {
+                            required: true,
+                        },
+                    ]}
+                >
                     <Select style={{ width: 200 }}>
 
 
@@ -222,15 +237,26 @@ const AddModelModal = ({ isVisible, Submit, Cancel, locations, vehicleList, USER
 
                     </Select>
                 </Form.Item>
-                <Form.Item label='Select Location' name='TestLocation_ID'>
+                <Form.Item label='Select Location' name='TestLocation_ID'
+                    rules={[
+                        {
+                            required: true,
+                        },
+                    ]}
+                >
                     <Select style={{ width: 200 }}>
                         {locations &&
                             locations.map((data, index) => {
+                                console.log(data.block)
+
+
                                 return (
                                     <Select.Option key={index} value={data?.id}  >
                                         {data?.address} , {data?.city}
                                     </Select.Option>
                                 )
+
+
                             })}
                     </Select>
                 </Form.Item>
@@ -242,7 +268,13 @@ const AddModelModal = ({ isVisible, Submit, Cancel, locations, vehicleList, USER
                 <Form.Item name='Status' hidden initialValue="new" >
                     <Input />
                 </Form.Item>
-                <Form.Item label='Select vehicle' name='vehicleDetails_ID'>
+                <Form.Item label='Select vehicle' name='vehicleDetails_ID'
+                    rules={[
+                        {
+                            required: true,
+                        },
+                    ]}
+                >
                     <Select style={{ width: 200 }} >
                         {vehicleList ?
 
@@ -251,7 +283,8 @@ const AddModelModal = ({ isVisible, Submit, Cancel, locations, vehicleList, USER
 
                                 return (
                                     <Select.Option key={index} value={data.id}  >
-                                        {data.engineCompanyName} , {data.modelName} , {data.noPlate}
+                                        {/* {data.engineCompanyName} , {data.modelName} ,  */}
+                                        {data.noPlate}
                                     </Select.Option>
                                 )
                             }) : null}

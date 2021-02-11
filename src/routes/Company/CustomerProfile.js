@@ -9,27 +9,26 @@ import { PROD } from '../../constants/ActionTypes';
 import { Col, message, Row } from 'antd';
 import TweenOne from 'rc-tween-one';
 
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Escalations from '../../components/profile/Contact/Escalations';
+import { getAllEscalations } from '../../appRedux/actions/Customer';
 
 
 const CustomerProfile = () => {
     const User = JSON.parse(localStorage.getItem('user'))
+    const { authUser } = useSelector(({ auth }) => auth)
+
     const [customer, setCustomer] = useState({});
+    const { allLevels } = useSelector(({ customer }) => customer)
+    const dispatch = useDispatch()
     const location = useLocation();
     const history = useHistory();
     //const CustomerID = location?.state?.CustomerID;
     const CustomerID = '17b859b6-032c-4567-97a7-110aa7681205';
 
-    // useEffect(() => {
-    //     axios.get(`${PROD}/api/Customers/${CustomerID}`).then(res => {
-    //         setCustomer(res.data);
-    //     })
-    //         .catch(err => {
-    //             // history.push('/sample');
-    //             message.error(err)
-    //         })
-    // }, [])
+    useEffect(() => {
+        dispatch(getAllEscalations())
+    }, [])
 
     return (
         <div>
@@ -48,7 +47,7 @@ const CustomerProfile = () => {
                         <Row>
 
                             <Col xl={8} lg={10} md={10} sm={24} xs={24}>
-                                <Escalations customer={User} />
+                                <Escalations customer={allLevels} />
                             </Col>
                         </Row>
                     </div>

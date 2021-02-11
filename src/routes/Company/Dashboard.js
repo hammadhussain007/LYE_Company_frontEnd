@@ -29,7 +29,7 @@ const Dashboard = () => {
             return {
                 id: index,
                 image: data?.picOfVehicleFront,
-                title: data?.modelName + " , " + data?.noPlate,
+                title: /*data?.modelName + " , " +*/ data?.noPlate,
                 date: moment(data?.licenseExpiryDate).format("MMM Do YYYY"),
                 about: 'About to expire'
             }
@@ -41,7 +41,7 @@ const Dashboard = () => {
             return {
                 id: index,
                 image: data?.Vehicle?.picOfVehicleFront,
-                title: data?.Vehicle?.modelName + " , " + data?.Vehicle?.noPlate,
+                title:  /*data?.Vehicle?.modelName + " , " + */ data?.Vehicle?.noPlate,
                 address: data?.Location?.address,
                 date: moment(data?.BookingDateTime).format('MMM Do YYYY, h:mm'),
                 about: 'oil change'
@@ -54,7 +54,7 @@ const Dashboard = () => {
             return {
                 id: index,
                 image: data?.Vehicle?.picOfVehicleFront,
-                title: data?.Vehicle?.modelName + " , " + data?.Vehicle?.noPlate,
+                title: /*data?.Vehicle?.modelName + " , " +*/ data?.Vehicle?.noPlate,
                 date: moment(data?.Vehicle?.licenseExpiryDate).format("MMM Do YYYY"),
                 about: 'Oil change required'
             }

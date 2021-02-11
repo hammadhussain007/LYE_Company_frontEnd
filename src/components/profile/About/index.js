@@ -9,21 +9,23 @@ const TabPane = Tabs.TabPane;
 
 const About = ({ customer }) => {
   const aboutList = [];
+
   return (
     <Widget title="About" styleName="gx-card-tabs gx-card-tabs-right gx-card-profile">
       <div className="gx-mb-2">
         <Row>
           <Col key={1} xl={8} lg={12} md={12} sm={12} xs={24}>
             <AboutItem title="Profession" icon="company"
-              desc={customer.profession}
+
+              desc={customer?.position + " at " + customer?.Company?.name}
             // desc={customer.profession}
             />
           </Col>
           <Col key={1} xl={8} lg={12} md={12} sm={12} xs={24}>
-            <AboutItem title="Date of Birth" icon="birthday-new"
+            {/* <AboutItem title="Date of Birth" icon="birthday-new"
               desc="12 feb 1990"
             // desc={moment(customer.dob).format("DD MMM, YYYY")}
-            />
+            /> */}
           </Col>
           <Col key={1} xl={8} lg={12} md={12} sm={12} xs={24}>
             <AboutItem title="Gender"

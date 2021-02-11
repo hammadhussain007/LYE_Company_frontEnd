@@ -29,19 +29,39 @@ const ProfileHeader = ({ Customer }) => {
               </p>
             </div>
           </div>
+          <div className="gx-profile-banner-top-left" style={{ marginLeft: "40%" }}>
+
+            <div className="gx-profile-banner-avatar">
+              <Avatar className="gx-size-90" alt="..."
+                src={Customer?.Company?.profilePic}
+              // src={require('assets/images/alisha.png')}
+              />
+            </div>
+            <div className="gx-profile-banner-avatar-info">
+              <h2 className="gx-mb-2 gx-mb-sm-3 gx-fs-xxl gx-font-weight-light">
+
+                {Customer?.Company?.name}
+                {/* Christina Johnson */}
+              </h2>
+              <p className="gx-mb-0 gx-fs-lg">
+                {Customer?.Company?.email}
+
+              </p>
+            </div>
+          </div>
 
         </div>
         <div className="gx-profile-banner-bottom">
           <div className="gx-tab-list">
             <ul className="gx-navbar-nav">
               <li>
-                <span className="gx-link"><Link to="/vehicleDetails" >Vehicles</Link></span>
+                <span className="gx-link"><Link to="/company/vehicleDetails" >Vehicles</Link></span>
               </li>
               <li>
-                <span className="gx-link"><Link to="/customerappointments" >Appointments</Link></span>
+                <span className="gx-link"><Link to="/company/appointments" >Appointments</Link></span>
               </li>
               <li>
-                <span className="gx-link"><Link to="/statistics" >Statistics</Link></span>
+                <span className="gx-link"><Link to="/company/statistics" >Statistics</Link></span>
               </li>
             </ul>
           </div>

@@ -1,4 +1,4 @@
-import { CUSTOMERS_GET, CUST_VEHICLES_GET, VEHICLE_ABOUT_EXPIRE, NEXT_VEH_SERVICE, GETTING_MODELS, APPOINTMENT_GET, INIT_URL, LOCATIONS_GET, OIL_MODEL_GET, PERMISSIONS_LIST, ROLES_LIST, USERS, USER_BY_ID, COMPANY_NAMES, VEHICLE_HISTORY } from "../../constants/ActionTypes";
+import { CUSTOMERS_GET, CUST_VEHICLES_GET, VEHICLE_ABOUT_EXPIRE, NEXT_VEH_SERVICE, GETTING_MODELS, APPOINTMENT_GET, INIT_URL, LOCATIONS_GET, OIL_MODEL_GET, PERMISSIONS_LIST, ROLES_LIST, USERS, USER_BY_ID, COMPANY_NAMES, VEHICLE_HISTORY, myStats, otherStats, othersStats, escalationLevels } from "../../constants/ActionTypes";
 
 const INIT_STATE = {
 
@@ -45,6 +45,18 @@ export default (state = INIT_STATE, action) => {
         case APPOINTMENT_GET: {
 
             return { ...state, appointments: action.payload };
+        }
+        case myStats: {
+
+            return { ...state, myStats: action.payload };
+        }
+        case othersStats: {
+
+            return { ...state, othersStats: action.payload };
+        }
+        case escalationLevels: {
+
+            return { ...state, allLevels: action.payload };
         }
 
         default:

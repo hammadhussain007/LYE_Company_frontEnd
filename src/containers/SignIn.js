@@ -56,7 +56,7 @@ const SignIn = (props) => {
               <Form.Item
 
                 rules={[{ required: true, message: 'The input is not valid E-mail!' }]} name="email">
-                <Input placeholder="Email" />
+                <Input placeholder="Email" type="email" />
               </Form.Item>
               <Form.Item
 
@@ -75,7 +75,7 @@ const SignIn = (props) => {
                 {/* <Button type="primary" className="gx-mb-0" htmlType="submit">
                   <Link to="/landing" >Landing</Link>
                 </Button> */}
-                <span><IntlMessages id="app.userAuth.or" /></span> <Link to="/signup"><IntlMessages
+                <span><IntlMessages id="app.userAuth.or" /></span> <Link to="/company/signup"><IntlMessages
                   id="app.userAuth.signUp" /></Link>
               </Form.Item>
               {/* <span className="gx-text-light gx-fs-sm"> demo user email: 'demo@example.com' and password: 'demo#123'</span> */}

@@ -90,7 +90,10 @@ const SignUp = (props) => {
     }
   });
   const SubmitUser = (values) => {
-    values.profilePic = imageUrl;
+    if (values.profilePic) {
+      values.profilePic = imageUrl;
+
+    }
     dispatch(userSignUp(values));
 
   }
@@ -125,22 +128,22 @@ const SignUp = (props) => {
               onFinishFailed={onFinishFailed}
               autoComplete="new-password"
             >
-              <Form.Item name="name" label="Name">
-                <Input autoComplete="off" />
+              <Form.Item name="name" label="Name" required>
+                <Input autoComplete="off" required />
               </Form.Item>
-              <Form.Item name="email" label="Email">
-                <Input autoComplete="off" />
+              <Form.Item name="email" label="Email" required>
+                <Input autoComplete="off" required type="email" />
               </Form.Item>
-              <Form.Item name="password" label="Password">
-                <Input.Password autoComplete="off" />
+              <Form.Item name="password" label="Password" required>
+                <Input.Password autoComplete="off" required />
               </Form.Item>
-              <Form.Item name="contactNo" label="Contact No">
-                <Input autoComplete="off" />
+              <Form.Item name="contactNo" label="Contact No" required>
+                <Input autoComplete="off" required type="number" />
               </Form.Item>
-              <Form.Item name="whatsAppNo" label="whatsApp No">
-                <Input autoComplete="off" />
+              <Form.Item name="whatsAppNo" label="whatsApp No" required>
+                <Input autoComplete="off" required type="number" />
               </Form.Item>
-              <Form.Item name="address" label="Address">
+              <Form.Item name="address" label="Address" required>
                 <Input autoComplete="off" />
               </Form.Item>
               <Form.Item name="profession" label="Profession">
@@ -184,8 +187,8 @@ const SignUp = (props) => {
               <Form.Item name="role" hidden="true" initialValue="Individual" >
                 <Input value="Individual" />
               </Form.Item>
-              <Form.Item name="gender" label="Gender" initialValue="Male">
-                <Select defaultValue="Male" allowClear>
+              <Form.Item name="gender" label="Gender" initialValue="Male" required>
+                <Select defaultValue="Male" allowClear >
                   <Option value="Male">Male</Option>
                   <Option value="Female">Female</Option>
                 </Select>

@@ -1,9 +1,11 @@
-import React, {useEffect} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {Drawer, Layout} from "antd";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Drawer, Layout } from "antd";
 
 import SidebarContent from "./SidebarContent";
-import {toggleCollapsedSideNav, updateWindowWidth} from "appRedux/actions/Setting";
+import carIcon from "../../assets/images/caricon.png"
+
+import { toggleCollapsedSideNav, updateWindowWidth } from "appRedux/actions/Setting";
 import {
   NAV_STYLE_DRAWER,
   NAV_STYLE_FIXED,
@@ -13,15 +15,16 @@ import {
   TAB_SIZE,
   THEME_TYPE_LITE
 } from "../../constants/ThemeSetting";
+import { Fragment } from "react";
 
-const {Sider} = Layout;
+const { Sider } = Layout;
 
 const Sidebar = () => {
 
   const dispatch = useDispatch();
 
-  const {themeType, navStyle} = useSelector(({settings}) => settings);
-  const { navCollapsed, width} = useSelector(({common}) => common);
+  const { themeType, navStyle } = useSelector(({ settings }) => settings);
+  const { navCollapsed, width } = useSelector(({ common }) => common);
 
   const onToggleCollapsedNav = () => {
     dispatch(toggleCollapsedSideNav(!navCollapsed));
@@ -66,9 +69,9 @@ const Sidebar = () => {
             closable={false}
             onClose={onToggleCollapsedNav}
             visible={navCollapsed}>
-            <SidebarContent/>
+            <SidebarContent />
           </Drawer> :
-          <SidebarContent/>
+          <SidebarContent />
       }
     </Sider>)
 };

@@ -17,7 +17,11 @@ export const setInitUrl = (url) => {
         payload: url
     };
 };
+const Token = JSON.parse(localStorage.getItem('token'))
+if (Token) {
+    axios.defaults.headers.common['authorization'] = "Bearer " + Token;
 
+}
 export const addRole = values => async dispatch => {
 
     try {

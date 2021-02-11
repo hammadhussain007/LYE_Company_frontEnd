@@ -19,7 +19,7 @@ const Productivity = () => {
   const User = JSON.parse(localStorage.getItem('user'))
 
   return (
-    <Widget styleName="gx-card-full" extra={<Link to="/customerprofile"> <i className="icon icon-setting gx-text-grey gx-fs-xl" /></Link>}>
+    <Widget styleName="gx-card-full" extra={<Link to="/company/customerprofile"> <i className="icon icon-setting gx-text-grey gx-fs-xl" /></Link>}>
       <div className="gx-text-center gx-px-3 gx-pt-3">
         <div className="gx-d-flex gx-justify-content-around gx-align-items-center gx-mb-3">
           <i />
@@ -42,7 +42,7 @@ const Productivity = () => {
         <ResponsiveContainer width="100%" height={118}>
           <AreaChart data={data}
             margin={{ top: 0, right: 0, left: 0, bottom: 0 }}>
-            <Area type='monotone' dataKey="price" stackId="2" stroke='#4D95F3' fill="black" fillOpacity={1} />
+            <Area type='monotone' dataKey="price" stackId="2" stroke='#4D95F3' fill="#038FDE" fillOpacity={1} />
           </AreaChart>
         </ResponsiveContainer>
       </div>

@@ -40,15 +40,15 @@ const Contact = ({ customer }) => {
         </div>
       </div> */}
       <div key={3} className="gx-media gx-align-items-center gx-flex-nowrap gx-pro-contact-list">
-        <div className="gx-mr-3">
+        {/* <div className="gx-mr-3">
           <WhatsAppOutlined className={`icon gx-fs-xxl gx-text-green`} />
-        </div>
-        <div className="gx-media-body">
+        </div> */}
+        {/* <div className="gx-media-body">
           <span className="gx-mb-0 gx-text-grey gx-fs-sm">WhatsApp</span>
           <p className="gx-mb-0"><span className="gx-link" key={2}>
             {customer.whatsAppNo}
           </span></p>
-        </div>
+        </div> */}
       </div>
     </Widget>
   )
