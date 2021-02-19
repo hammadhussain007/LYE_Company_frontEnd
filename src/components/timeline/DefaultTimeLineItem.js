@@ -1,9 +1,32 @@
 import React from "react";
 import { Avatar, Descriptions, Divider, Image } from "antd";
 import moment from "moment"
+import axios from 'util/Api'
+import { PROD } from "../../constants/ActionTypes";
+import { useEffect } from "react";
+import { useState } from "react";
+
 
 const DefaultTimeLineItem = ({ styleName, timeLine }) => {
   const { time, image, title, details } = timeLine;
+  const [oil, setOil] = useState({})
+
+
+  useEffect(() => {
+
+    if (details?.OilService?.oilId) {
+
+      console.log("oilid  ", details?.OilService?.oilId)
+
+      axios.post(`${PROD}/getOilDetailsById`, { "id": details?.OilService?.oilId }).then(res => {
+
+        setOil(res.data[0])
+        console.log("api  ", res.data[0])
+
+
+      })
+    }
+  }, [details?.OilService?.oilId])
   return (
     <div className={`gx-timeline-item ${styleName}`}>
       <div className="gx-timeline-badge gx-timeline-img">
@@ -30,7 +53,7 @@ const DefaultTimeLineItem = ({ styleName, timeLine }) => {
             column={{ xxl: 2, xl: 2, lg: 2, md: 2, sm: 3, xs: 2 }}
           >
             <Descriptions.Item label="Location">{details?.Location?.address} , {details?.Location?.city}</Descriptions.Item>
-            <Descriptions.Item label="Oil">havoline</Descriptions.Item>
+            <Descriptions.Item label="Oil">{oil?.companyName + " " + oil?.oilModel}</Descriptions.Item>
             <Descriptions.Item label="oil Test Result">{details?.OilService?.oilTestResult} / 10</Descriptions.Item>
             <Descriptions.Item label="last service date">{moment(details?.OilService?.lastServiceDate).format('MMMM Do YYYY')}</Descriptions.Item>
             <Descriptions.Item label="Odometer">{details?.OilService?.endometerValue}</Descriptions.Item>

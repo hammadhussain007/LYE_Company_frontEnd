@@ -134,13 +134,13 @@ const Appointments = () => {
                     </div>
                 }
             >
-                <Input.Search
+                {/* <Input.Search
                     ref={searchInput}
                     placeholder='Search'
                     enterButton
                     onSearch={search}
                     style={{ width: 300, float: 'right' }}
-                />
+                /> */}
                 <Table
                     columns={AppointmentsSchema(Menus)}
                     loading={false}

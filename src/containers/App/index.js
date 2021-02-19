@@ -128,7 +128,7 @@ const App = () => {
 
       }
       else {
-        history.push(initURL);
+        history.push(`${initURL}/company/signin`);
       }
     }
   }, [authUser, token]);
@@ -143,7 +143,7 @@ const App = () => {
 
         <Switch>
           <Route exact path='/company/signin' component={SignIn} />
-          <Route exact path='/company/signup' component={SignUp} />
+          {/* <Route exact path='/company/signup' component={SignUp} /> */}
           <Route exact path='/company' component={Landing} />
           <RestrictedRoute path={`${match.url}`} token={token} location={location}
             component={MainApp} />

@@ -27,7 +27,7 @@ function Statistics() {
         <Fragment>
             <Tabs onChange={callback} type="card">
                 <TabPane tab="Other Cars stats" key="1">
-                    {othersStats && othersStats?.map((data, index) => {
+                    {othersStats ? othersStats?.map((data, index) => {
                         console.log(data)
                         return (
                             <Card
@@ -53,7 +53,7 @@ function Statistics() {
                             >
                                 <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
 
-                                    <Col className="gutter-row" span={12}>
+                                    <Col className="gutter-row" span={10}>
                                         <Divider orientation="left">Oil images</Divider>
                                         {/* <Gallery images={IMAGES} /> */}
                                         <Image
@@ -77,7 +77,7 @@ function Statistics() {
                         /> */}
                                     </Col>
 
-                                    <Col className="gutter-row" span={12}>
+                                    <Col className="gutter-row" span={14}>
                                         <Divider orientation="left">Vehicle Recomendations</Divider>
                                         <Descriptions
 
@@ -113,10 +113,10 @@ function Statistics() {
 
                             </Card>
                         )
-                    })}
+                    }) : "no stats available at the moment"}
                 </TabPane>
                 <TabPane tab="My stats" key="2">
-                    {myStats && myStats?.map((data, index) => {
+                    {myStats ? myStats?.map((data, index) => {
                         console.log(data)
                         return (
                             <Card
@@ -142,7 +142,7 @@ function Statistics() {
                             >
                                 <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
 
-                                    <Col className="gutter-row" span={12}>
+                                    <Col className="gutter-row" span={10}>
                                         <Divider orientation="left">Oil images</Divider>
                                         {/* <Gallery images={IMAGES} /> */}
                                         <Image
@@ -166,12 +166,12 @@ function Statistics() {
                         /> */}
                                     </Col>
 
-                                    <Col className="gutter-row" span={12}>
+                                    <Col className="gutter-row" span={14}>
                                         <Divider orientation="left">Vehicle Recomendations</Divider>
                                         <Descriptions
 
                                             bordered
-                                            column={{ xxl: 1, xl: 2, lg: 2, md: 2, sm: 3, xs: 1 }}
+                                            column={{ xxl: 1, xl: 2, lg: 2, md: 2, sm: 3, xs: 2 }}
                                         >
                                             <Descriptions.Item label="Car make & model">{data?.EngineCompany?.engineCompanyName + ' ' + data?.EngineCompany?.modelName}</Descriptions.Item>
                                             <Descriptions.Item label="Default Engine">Yes</Descriptions.Item>
@@ -202,7 +202,7 @@ function Statistics() {
 
                             </Card>
                         )
-                    })}
+                    }) : "no stats available at the moment"}
                 </TabPane>
 
             </Tabs>

@@ -160,13 +160,14 @@ const VehicleDetails = () => {
 
             {vehicleList ? vehicleList.map((data, index) => (
                 <Card
-                    title='Toyota Corolla'
+                    title={data?.EngineCompany?.engineCompanyName + " " + data?.EngineCompany?.modelName + " " + data?.EngineCompany?.menufectureYear}
+
                     className='gx-card-widget'
 
                     extra={
                         <div>
 
-                            <Link to={`/vehicleOilDetails/${data?.id}`}>
+                            <Link to={`/company/vehicleOilDetails/${data?.id}`}>
                                 <Button
                                     // onClick={() => {
                                     //     setAddModalVisible(true)
@@ -196,9 +197,10 @@ const VehicleDetails = () => {
                                 <Divider orientation="left">Vehicle images</Divider>
                                 {/* <Gallery images={IMAGES} /> */}
                                 <Image
-                                    width={600}
+                                    width={450}
                                     src={data?.picOfVehicleFront}
                                 />
+                                <br />
                                 <Image
                                     width={150}
                                     src={data?.picOfVehicleBack}

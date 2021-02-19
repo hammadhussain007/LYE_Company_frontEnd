@@ -15,7 +15,8 @@ const VehicleOilDetails = (props) => {
     }, [])
     return (
         <div>
-            {vehicleHistory && vehicleHistory.map((data, index) => {
+            {vehicleHistory?.length > 0 ? vehicleHistory?.map((data, index) => {
+
                 let title
                 if (data?.carWashDone) {
                     title = "car wash"
@@ -26,7 +27,9 @@ const VehicleOilDetails = (props) => {
                 return (<DefaultTimeLineItem timeLine={{ time: moment(data?.createdAt).format('MMMM Do YYYY, h:mm'), image: data?.Vehicle?.picOfVehicleFront, title: title, details: data }} />
 
                 )
-            })}
+            }) : <h2>No services provided for this vehicle. please visit nearest LYE station to get your oil service done</h2>}
+
+
         </div>
     )
 }

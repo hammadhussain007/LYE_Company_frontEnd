@@ -115,6 +115,13 @@ const CustVehicleAdd = () => {
             formData.picOfVehicleEngine = carpics?.picOfVehicleEngine
             formData.picOfVehicleFront = carpics?.picOfVehicleFront
             formData.oilFilterpicOfFilter = carpics?.oilFilterpicOfFilter
+            if (isEngineDefault) {
+                formData.engineType = "default"
+            }
+            else {
+                formData.engineType = "not default"
+
+            }
             dispatch(addingCustVehicles(formData))
             vehicleAddForm.resetFields()
             next()
