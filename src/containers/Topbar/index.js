@@ -14,6 +14,7 @@ import Auxiliary from "util/Auxiliary";
 
 import { NAV_STYLE_DRAWER, NAV_STYLE_FIXED, NAV_STYLE_MINI_SIDEBAR, TAB_SIZE } from "../../constants/ThemeSetting";
 import { useDispatch, useSelector } from "react-redux";
+import axios from 'util/Api'
 
 const { Header } = Layout;
 
@@ -23,6 +24,7 @@ const Topbar = () => {
   const { navCollapsed, width } = useSelector(({ common }) => common);
   const { searchText, setSearchText } = useState('');
   const dispatch = useDispatch();
+  axios.defaults.headers.common["authorization"] = "Bearer " + JSON.parse(localStorage.getItem("token"));
 
   const languageMenu = () => (
     <CustomScrollbars className="gx-popover-lang-scroll">

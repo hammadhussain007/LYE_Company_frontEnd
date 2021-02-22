@@ -1,8 +1,7 @@
 import axios from 'axios';
+import { PROD } from '../constants/ActionTypes';
 
 export default axios.create({
-  baseURL: "http://g-axon.work/jwtauth/api",
-  headers: {
-    'Content-Type': 'application/json',
-  }
+  baseURL: `${PROD}`,
+
 });
